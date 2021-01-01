@@ -36,6 +36,7 @@ folder = os.path.join(os.getcwd(), 'casting_products')
 
 ##############################
 
+"""
 
 # 512x512 images
 
@@ -119,13 +120,13 @@ preprocessing_imgs(test_non_defective_path, test_non_defective_files)
 
 ##############################
 
+"""
 
 
 
 # Comment the below section to use 512x512
 
 
-"""
 
 ##############################
 
@@ -172,8 +173,8 @@ defective_files = [ os.path.join(folder, _file_) for folder in defective_file_pa
 non_defective_files = [ os.path.join(folder, _file_) for folder in non_defective_file_paths for _file_ in os.listdir(folder)]
 
 # splitting the dataset
-train_defective_files = defective_files[ : int(split_ratio * len(defective_files))]
-test_defective_files = defective_files[ int(split_ratio * len(defective_files)) : ]
+train_defective_files = defective_files[ int(split_ratio * len(defective_files)) : ]
+test_defective_files = defective_files[ : int(split_ratio * len(defective_files)) ]
 
 train_non_defective_files = non_defective_files[ : int(split_ratio * len(non_defective_files))]
 test_non_defective_files = non_defective_files[ int(split_ratio * len(non_defective_files)) : ]
@@ -213,4 +214,3 @@ preprocessing_imgs(train_non_defective_path, train_non_defective_files)
 preprocessing_imgs(test_defective_path, test_defective_files)
 preprocessing_imgs(test_non_defective_path, test_non_defective_files)
 
-"""
