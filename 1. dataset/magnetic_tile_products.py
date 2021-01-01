@@ -1,3 +1,11 @@
+"""
+Download the surface defect dataset from : https://github.com/Charmve/Surface-Defect-Detection 
+Using the data in the folder 'Magnetic-Tile-Defect'
+
+Program to re-arrange the file structure of the dataset.
+
+"""
+
 import os
 import shutil
 
