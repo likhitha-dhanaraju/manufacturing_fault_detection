@@ -187,4 +187,4 @@ def extract_data(cls=False, det=False):
 				shutil.copy(source_image, destination_image)
 
 
-extract_data( det=True )
+extract_data( cls=True )

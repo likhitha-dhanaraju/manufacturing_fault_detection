@@ -10,6 +10,7 @@ open, short, mousebite, spur, pin hole and spurious copper.
 
 import os
 import shutil
+from tqdm import tqdm
 
 # path of the original dataset
 main_dir = 'DeepPCB/PCBData'
@@ -24,8 +25,9 @@ if not os.path.exists(data_dir):
 # list of the product names 
 objects = [i for i in os.listdir(main_dir) if '.' not in i]
 
+print("Iterating through the products...")
 # iterating through the products
-for obj in objects:
+for obj in tqdm(objects):
 
 	# full path of the product name
 	obj_path = os.path.join(main_dir, obj)

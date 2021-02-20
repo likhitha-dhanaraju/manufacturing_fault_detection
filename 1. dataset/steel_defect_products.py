@@ -9,6 +9,7 @@ Can be modified for the object detection purpose
 import os
 import pandas as pd 
 import shutil
+from tqdm import tqdm
 
 # directory name of the data
 main_dir = 'severstal-steel-defect-detection'
@@ -55,7 +56,7 @@ def extract_data(cls=False, seg=False):
 			if not os.path.exists(category):
 				os.mkdir(category)
 
-		for i in range(len(data)):
+		for i in tqdm(range(len(data))):
 
 			image_name = data['ImageId'][i]
 			class_name = 'Class_'+ str(data['ClassId'][i])
@@ -67,11 +68,4 @@ def extract_data(cls=False, seg=False):
 				shutil.copy(source_image, destination_image)
 
 
-	if seg:
-
-		"""
-
-		code to be added for extracting segmentation data.
-
-		"""
 extract_data(cls=True)

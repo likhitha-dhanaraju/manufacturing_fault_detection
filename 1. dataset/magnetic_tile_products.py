@@ -8,6 +8,7 @@ Program to re-arrange the file structure of the dataset.
 
 import os
 import shutil
+from tqdm import tqdm
 
 main_dir = 'Magnetic-Tile-Defect'
 
@@ -23,7 +24,8 @@ for category in categories:
 	if not os.path.exists( os.path.join( data_dir, category) ):
 		os.mkdir(os.path.join(data_dir, category))
 
-for category in categories:
+
+for category in tqdm(categories):
 
 	category_path = os.path.join(main_dir, category, 'Imgs')
 

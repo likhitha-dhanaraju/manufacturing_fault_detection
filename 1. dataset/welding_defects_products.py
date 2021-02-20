@@ -7,9 +7,10 @@ The dataset can be downloaded from : https://www.kaggle.com/danielbacioiu/tig-al
 import os
 import json
 import shutil
+from tqdm import tqdm
 
-# path of the original dataset
-main_dir = 'welding-defect/al5083'
+# path of the directory containing train and test folders
+main_dir = 'welding_dataset'
 
 # path of the new pre-processed dataset
 data_dir = 'welding_defect_products'
@@ -23,6 +24,8 @@ data_splits = ['train', 'test']
 
 # iterating through the data split folders
 for split in data_splits:
+
+	print("\n \n Processing the", split, "dataset \n")
 
 	# read the annotations file
 	f = open(os.path.join(main_dir, split, split+'.json'), 'r' )
@@ -45,7 +48,7 @@ for split in data_splits:
 									   for img in os.listdir( os.path.join(main_dir, split, folder))]	
 
 	# iterating through all the images
-	for file in files:
+	for file in tqdm(files):
 
 		# class name from  the annotations
 		class_name = 'Class_' + str(data[file])

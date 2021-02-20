@@ -30,12 +30,14 @@ import numpy as np
 import os
 
 
-def load_dataset(fname=None):
+def load_dataset(datafolder ,fname=None):
     if fname is None:
         # Assume we are in the utils folder and get the absolute path to the
         # parent directory.
         fname = os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                             os.path.pardir))
+                                             os.path.pardir,
+                                             datafolder))
+
         fname = os.path.join(fname, 'labels.csv')
 
     data = np.genfromtxt(fname, dtype=['|S19', '<f8', '|S4'], names=[
