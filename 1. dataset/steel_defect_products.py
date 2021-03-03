@@ -10,6 +10,8 @@ import os
 import pandas as pd 
 import shutil
 from tqdm import tqdm
+from collections import Counter
+import numpy as np
 
 # directory name of the data
 main_dir = 'severstal-steel-defect-detection'
@@ -50,22 +52,87 @@ def extract_data(cls=False, seg=False):
 		if not os.path.exists(data_dir):
 			os.mkdir(data_dir)
 
-		categories = [os.path.join(data_dir, "Class_"+str(i)) for i in list(set(data['ClassId']))]
+		all_classes =  ["Class_"+str(i) for i in list(data['ClassId'])]
+
+		categories = set(all_classes)
+
+		categories_count = Counter(all_classes)
+
+		print(categories_count)
+
+		median = int(0.9 * np.median(list(categories_count.values())))
+
+		#median = int(np.median(list(categories_count.values())))
+
+		print("Median:", median)
+
+		train_len = int(0.9 * len(data))
+
+		train_data = data.iloc[:train_len]
+
+		test_data = data.iloc[train_len:]
+
+		train_dir = os.path.join(data_dir, 'train')
+		
+		if not os.path.exists(train_dir):
+			os.mkdir(train_dir)
 
 		for category in categories:
-			if not os.path.exists(category):
-				os.mkdir(category)
 
-		for i in tqdm(range(len(data))):
+			category_path = os.path.join(train_dir, category)
 
-			image_name = data['ImageId'][i]
-			class_name = 'Class_'+ str(data['ClassId'][i])
+			if not os.path.exists(category_path):
+				os.mkdir(category_path)
 
-			source_image = os.path.join(images_dir, image_name)
-			destination_image = os.path.join(data_dir, class_name, image_name)
 
-			if not os.path.exists(destination_image):
-				shutil.copy(source_image, destination_image)
+		train_counter_check = {key:0 for key in categories}
 
+		for i in tqdm(range(len(train_data))):
+
+			image_name = train_data['ImageId'][i]
+			class_name = 'Class_'+ str(train_data['ClassId'][i])
+			
+			if train_counter_check[class_name] <= median:
+
+				train_counter_check[class_name] += 1
+
+				source_image = os.path.join(images_dir, image_name)
+				destination_image = os.path.join(train_dir, class_name, image_name)
+
+				if not os.path.exists(destination_image):
+					shutil.copy(source_image, destination_image)
+
+		print(train_counter_check)
+
+		test_dir = os.path.join(data_dir, 'test')
+		
+		if not os.path.exists(test_dir):
+			os.mkdir(test_dir)
+
+		for category in categories:
+
+			category_path = os.path.join(test_dir, category)
+			
+			if not os.path.exists(category_path):
+				os.mkdir(category_path)
+
+		test_counter_check = {key:0 for key in categories}
+
+		for i in tqdm(range(train_len, len(data))):
+
+			image_name = test_data['ImageId'][i]
+			class_name = 'Class_'+ str(test_data['ClassId'][i])
+		
+			if test_counter_check[class_name] <= int(median/10):
+
+				test_counter_check[class_name] += 1
+
+				source_image = os.path.join(images_dir, image_name)
+				destination_image = os.path.join(test_dir, class_name, image_name)
+
+				if not os.path.exists(destination_image):
+					shutil.copy(source_image, destination_image)
+
+		print(test_counter_check)
 
 extract_data(cls=True)

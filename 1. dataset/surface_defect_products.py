@@ -50,6 +50,32 @@ xmin, ymin, xmax, ymax
 import os
 import shutil
 from lxml import etree
+from tqdm import tqdm
+
+
+def create_data(files, folder, datapath, source_path):
+
+	# full path of the destination folder
+	destination_path = os.path.join(datapath, folder)
+
+	# if the destination category folder does not exists, create a new folder
+	if not os.path.exists(destination_path):
+		os.mkdir(destination_path)
+
+	# iterating through the files in the category folder.
+	for _file_ in tqdm(files):
+
+		# full path of the source image file
+		source = os.path.join( source_path, _file_ )
+
+		# full path of the destination image file
+		destination = os.path.join( destination_path, _file_ )
+
+		if not os.path.exists(destination):
+			# copying the image to the pre-processed dataset folder
+			shutil.copy(source, destination)
+	
+
 
 def extract_data(cls=False, det=False):
 	"""
@@ -79,39 +105,41 @@ def extract_data(cls=False, det=False):
 		# path of the pre-processed dataset to be created.
 		datapath = 'surface_cls_dataset'
 
-		# if the path already exists, overwriting the data.
-		if os.path.exists(datapath):
-			print( "Dataset already exists, overwriting it!" )
-
 		# if the path does not exist,creating the new data folder.
 		if not os.path.exists(datapath):
 			os.mkdir(datapath)
 
+		train_datapath = os.path.join(datapath, 'train')
+
+		if not os.path.exists(train_datapath):
+			os.mkdir(train_datapath)
+
+		test_datapath = os.path.join(datapath, 'test')
+		
+		if not os.path.exists(test_datapath):
+			os.mkdir(test_datapath)
+
 		# iterating through all the category folders.
-		for folder in folders:
+		for folder in sorted(folders):
+
 
 			# full path of the source folder
 			source_path = os.path.join(path, folder)
 
-			# full path of the destination folder
-			destination_path = os.path.join(datapath, folder)
+			files = sorted(os.listdir(source_path))
 
-			# if the destination category folder does not exists, create a new folder
-			if not os.path.exists(destination_path):
-				os.mkdir(destination_path)
+			train_len = int(0.9 * len(files))
 
-			# iterating through the files in the category folder.
-			for _file_ in os.listdir(source_path):
+			train_files = files[:train_len]
 
-				# full path of the source image file
-				source = os.path.join( source_path, _file_ )
+			test_files = files[train_len:]
 
-				# full path of the destination image file
-				destination = os.path.join( destination_path, _file_ )
 
-				# copying the image to the pre-processed dataset folder
-				shutil.copy(source, destination)
-	
+			create_data(train_files, folder, train_datapath, source_path)
+
+			create_data(test_files, folder, test_datapath, source_path)
+
+			
 	# if object detection dataset needs to be pre-processed.
 	if det:
 

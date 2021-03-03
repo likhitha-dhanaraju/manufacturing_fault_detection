@@ -13,8 +13,9 @@ from utils.elpv_reader import load_dataset
 import cv2
 import numpy as np
 import shutil
-from tqdm import tqdm
 import os
+from sklearn.model_selection import train_test_split
+
 
 destination_folder = 'solar_panels_products'
 
@@ -26,24 +27,38 @@ if not os.path.exists(destination_folder):
 
 images, _, types = load_dataset(datafolder = 'elpv_dataset')
 
-idx = 0
-
-for image ,type_ in zip(images, types):
+train_images, test_images, train_types, test_types = train_test_split(images, types, test_size= 0.1)
 
 
-	image = cv2.resize(image, (300, 300)).reshape(300,300,1)
+def create_dataset(images, types, split):
 
-	category_folder = os.path.join(destination_folder, type_)
+	data_folder = os.path.join(destination_folder, split)
 
-	if not os.path.exists(category_folder):
-		os.mkdir(category_folder)
+	if not os.path.exists(data_folder):
+		os.mkdir(data_folder)
 
-	image_name = os.path.join( category_folder, 'elpv_' + str(idx) + '.jpg')
+	idx = 0
+
+	for image ,type_ in zip(images, types):
 
 
-	if not os.path.exists(image_name):
+		image = cv2.resize(image, (300, 300)).reshape(300,300,1)
 
-		cv2.imwrite(image, image_name )
+		category_folder = os.path.join(data_folder, type_)
 
-	idx += 1
-	
+		if not os.path.exists(category_folder):
+			os.mkdir(category_folder)
+
+		image_name = os.path.join( category_folder, 'elpv_' + str(idx) + '.jpg')
+
+
+		if not os.path.exists(image_name):
+
+			cv2.imwrite(image_name, image )
+
+		idx += 1
+		
+
+create_dataset(train_images, train_types, "train")
+create_dataset(test_images, test_types, "test")
+
