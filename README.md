@@ -1,4 +1,4 @@
-# manufacturing_fault_detection
+</p># manufacturing_fault_detection
 
 ## Introduction
 
@@ -19,17 +19,20 @@ The objective of this project is,
 - The pictures are the top view of a submersible pump impeller. The dataset contains a total 7348 image data. These all are the size of (300x300) pixels grey-scaled images. In all images, augmentation already applied. 
 - The dataset also contains images of size of 512x512 grayscale. This data set is without data augmentation. This contains 519 “ok front” and 781 “defective front” impeller images.
 
-![cast_def_0_2](https://user-images.githubusercontent.com/34205126/113442554-ddb45200-940d-11eb-9a3c-fcb47324068a.jpeg)
-![cast_def_0_197](https://user-images.githubusercontent.com/34205126/113442558-dee57f00-940d-11eb-8fc0-5eb9ddbc92db.jpeg)
+<p align="center">
+  
+<img src="https://user-images.githubusercontent.com/34205126/113442554-ddb45200-940d-11eb-9a3c-fcb47324068a.jpeg">
+<img src="https://user-images.githubusercontent.com/34205126/113442558-dee57f00-940d-11eb-8fc0-5eb9ddbc92db.jpeg">
 
 <p align="center">
 Defective products
-</p>
+</p></p>
 
-
-![cast_ok_0_57](https://user-images.githubusercontent.com/34205126/113442561-df7e1580-940d-11eb-85e6-e97fb456a568.jpeg)
-![cast_ok_0_316](https://user-images.githubusercontent.com/34205126/113442562-e016ac00-940d-11eb-9417-5a072e0637c7.jpeg)
-
+<p align="center">
+  
+<img src="https://user-images.githubusercontent.com/34205126/113442561-df7e1580-940d-11eb-85e6-e97fb456a568.jpeg">
+<img src="https://user-images.githubusercontent.com/34205126/113442562-e016ac00-940d-11eb-9417-5a072e0637c7.jpeg">
+![cast_def_0_197](
 <p align="center">
 Non defective products
 </p>
@@ -66,11 +69,24 @@ Non-cracked walls ( Negative )
 - From heating and rolling, to drying and cutting, several machines touch flat steel by the time it’s ready to ship. 
 - The dataset is annotated for the purpose of classification as well as object detection. Contains 3000 images of size 256 x 1600 of four different classes. 
 
+<p align="center">
+
+<img src="https://user-images.githubusercontent.com/34205126/113724645-2e7ac200-9710-11eb-9976-2f7a1926261c.jpg">
+Class_: 
+<img src="https://user-images.githubusercontent.com/34205126/113724661-3175b280-9710-11eb-9236-315c6c61f2d8.jpg">
+
+<img src="https://user-images.githubusercontent.com/34205126/113724730-43efec00-9710-11eb-8fc5-0ce6ec7ddaa4.jpg">
+
+<img src="https://user-images.githubusercontent.com/34205126/113724738-46eadc80-9710-11eb-88d0-56fcb90f982c.jpg">
+
+<p>
+
 #### 4.	GC10 Metal Surface Dataset: </br>
 - Severstal is leading the charge in efficient steel mining and production. The production process of flat sheet steel is especially delicate. 
 - From heating and rolling, to drying and cutting, several machines touch flat steel by the time it’s ready to ship. 
 - The dataset is annotated for the purpose of classification as well as object detection. Contains 3000 images of size 256 x 1600 of four different classes. 
-
+ 
+ 
 #### 5. Solar Cells dataset: </br>
 
 - The dataset contains 2,624 samples of 300x300 pixels 8-bit grayscale images of functional and defective solar cells with varying degrees of degradations extracted from 44 different solar modules. 
