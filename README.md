@@ -27,7 +27,7 @@ The objective of this project is,
 
 ## Preprocessing
 
-### 1. Dataset structure:
+### Dataset structure reorganisation:
 
 After the datasets are downloaded from their respective sources, they have to be put in a certain folder structure to make it feasible for training. For the same, python programs have been written for each dataset to arrange them in the desired folder structure as shown below:
 
