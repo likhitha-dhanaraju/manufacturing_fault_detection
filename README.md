@@ -8,7 +8,6 @@ The objective of this project is,
 
 *"To develop a universal model for the detection of faults of various manufacturing defect datasets irrespective of the nature of the defects or the products and to develop a streamlined process for preprocessing and training the model for any dataset."*
 
----
 
 ## The datasets used in this project
  ![datasets](https://user-images.githubusercontent.com/34205126/114338063-ede7d200-9b6f-11eb-97a0-0d53465320fc.png)
